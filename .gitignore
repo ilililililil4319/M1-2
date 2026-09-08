@@ -1,0 +1,21 @@
+﻿# 환경변수 / 키
+.env
+backend/.env
+serviceAccountKey.json
+backend/serviceAccountKey.json
+*.key
+
+# 가상환경
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Node / Frontend
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
