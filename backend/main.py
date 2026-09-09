@@ -17,9 +17,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-from app.routers import data, conversations
+from app.routers import data, conversations, chat
 app.include_router(data.router)
 app.include_router(conversations.router)
+app.include_router(chat.router)
 
 @app.get("/")
 def root():
