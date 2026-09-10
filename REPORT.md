@@ -246,6 +246,16 @@ client = OpenAI(
 | 추가 시각화 | 요약 화면에 "안정성 지표 추이"(부채비율·유동비율) 차트 신규 추가 |
 | 변동성(표준편차) 지표 | `data_service.get_summary()`에 지표별 표준편차 계산 추가 |
 
+### 보너스 기능 동작 확인
+
+| 다크모드 토글 | CSV/JSON 내보내기 |
+|:---:|:---:|
+| ![](screenshots/87.%20%EB%B3%B4%EB%84%88%EC%8A%A4_%EB%8B%A4%ED%81%AC%EB%AA%A8%EB%93%9C.png) | ![](screenshots/88.%20%EB%B3%B4%EB%84%88%EC%8A%A4_CSV_JSON_%EB%82%B4%EB%B3%B4%EB%82%B4%EA%B8%B0.png) |
+
+**추가 시각화(안정성 지표 추이) + 변동성(표준편차) 지표**
+
+![](screenshots/89.%20%EB%B3%B4%EB%84%88%EC%8A%A4_%EC%95%88%EC%A0%95%EC%84%B1%EC%A7%80%ED%91%9C_%EB%B3%80%EB%8F%99%EC%84%B1.png)
+
 ### 배포 동작 확인
 
 | Render Swagger UI | Vercel 배포 화면 |
@@ -266,6 +276,16 @@ client = OpenAI(
 | Render 빌드 실패<br/>(requirements.txt 못 찾음) | Root Directory 미지정 +<br/>requirements.txt 파일이<br/>커밋된 적 없었음 | Root Directory를 backend로<br/>지정, requirements.txt 신규 생성 |
 | 프론트 로컬 테스트 시<br/>"Failed to fetch" | index.html을 file://로<br/>직접 열어 CORS에 막힘 | Live Server(http://)로 실행 |
 | 배포 사이트에서<br/>"Failed to fetch" | Render ALLOWED_ORIGINS에<br/>실제 Vercel 주소 미포함 | 환경변수에 Vercel 주소<br/>추가 후 재배포 |
+
+**오류 처리 과정 증빙**
+
+| 코디세이 API 오류 발생 | 원인 추적(traceback 디버깅) | 해결 확인(정상 응답) |
+|:---:|:---:|:---:|
+| ![](screenshots/58.%20chat%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%97%90%EB%9F%AC.png) | ![](screenshots/61-3.%20chat%20%EC%97%90%EB%9F%AC%20%EC%B0%BE%EA%B8%B03.png) | ![](screenshots/61-6.%20chat%20%EC%97%90%EB%9F%AC%20%EC%B0%BE%EA%B8%B06%28%EC%84%B1%EA%B3%B5%29.png) |
+
+| Render 빌드 실패(로그) | 원인 파악 후 재배포 성공 |
+|:---:|:---:|
+| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/71.%20%EB%A0%8C%EB%8D%94_%EC%9E%AC%EB%B0%B0%ED%8F%AC%20%EC%84%B1%EA%B3%B5.png) |
 
 ---
 
