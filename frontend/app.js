@@ -1,6 +1,5 @@
 // ===== 설정 =====
-// 배포 시 이 값을 Render 백엔드 주소로 변경하세요. (예: "https://m1-2-backend.onrender.com")
-const API_BASE_URL = "http://127.0.0.1:8000";
+const API_BASE_URL = "https://m1-2-xvcs.onrender.com";
 
 const CHART_COLORS = ["#2C3E66", "#3D8D7A", "#D4A24E", "#C1666B"];
 
