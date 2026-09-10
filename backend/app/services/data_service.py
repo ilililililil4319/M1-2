@@ -1,5 +1,6 @@
 from app.core.firebase import db
 from datetime import datetime, timezone
+import statistics
 
 COLLECTION = "data"
 
@@ -46,12 +47,16 @@ def get_summary() -> dict:
 
     metrics_by_indicator = {}
     for memo, values in by_memo.items():
+        # 변동성(표준편차): 데이터가 2개 이상일 때만 의미가 있음 (보너스 - 추가 지표)
+        volatility = statistics.pstdev(values) if len(values) >= 2 else 0
+
         metrics_by_indicator[memo] = {
             "count": len(values),
             "latest": values[-1],
             "average": sum(values) / len(values),
             "max": max(values),
             "min": min(values),
+            "volatility": volatility,
         }
 
     revenue_values = by_memo.get("매출액", [])

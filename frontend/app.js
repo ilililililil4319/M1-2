@@ -3,6 +3,33 @@ const API_BASE_URL = "https://m1-2-xvcs.onrender.com";
 
 const CHART_COLORS = ["#2C3E66", "#3D8D7A", "#D4A24E", "#C1666B"];
 
+/* =========================================================
+   0. 다크모드 토글 (보너스 기능)
+   ========================================================= */
+const themeToggleBtn = document.getElementById("theme-toggle-btn");
+
+function applyTheme(theme) {
+  if (theme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    themeToggleBtn.textContent = "☀️";
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    themeToggleBtn.textContent = "🌙";
+  }
+  localStorage.setItem("m1-2-theme", theme);
+}
+
+(function initTheme() {
+  const saved = localStorage.getItem("m1-2-theme");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  applyTheme(saved || (prefersDark ? "dark" : "light"));
+})();
+
+themeToggleBtn.addEventListener("click", () => {
+  const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+  applyTheme(isDark ? "light" : "dark");
+});
+
 // ===== 탭 전환 =====
 document.querySelectorAll(".tab-btn").forEach(btn => {
   btn.addEventListener("click", () => {
@@ -86,11 +113,13 @@ chatForm.addEventListener("submit", async (e) => {
    ========================================================= */
 const dataForm = document.getElementById("data-form");
 const dataTableBody = document.getElementById("data-table-body");
+let currentDataItems = [];
 
 async function loadDataTable() {
   dataTableBody.innerHTML = `<tr><td colspan="4">불러오는 중...</td></tr>`;
   try {
     const items = await apiFetch("/api/data");
+    currentDataItems = items;
     if (!items.length) {
       dataTableBody.innerHTML = `<tr><td colspan="4">데이터가 없습니다.</td></tr>`;
       return;
@@ -139,6 +168,31 @@ async function deleteDataItem(id) {
 }
 
 document.getElementById("data-refresh-btn").addEventListener("click", loadDataTable);
+
+// ----- 내보내기 (보너스 기능) -----
+function downloadFile(filename, content, mimeType) {
+  const blob = new Blob([content], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById("export-csv-btn").addEventListener("click", () => {
+  if (!currentDataItems.length) { alert("내보낼 데이터가 없습니다. 먼저 새로고침 해주세요."); return; }
+  const header = "date,memo,value\n";
+  const rows = currentDataItems.map(d => `${d.date},${d.memo},${d.value}`).join("\n");
+  downloadFile("naver_financials.csv", "\uFEFF" + header + rows, "text/csv;charset=utf-8;");
+});
+
+document.getElementById("export-json-btn").addEventListener("click", () => {
+  if (!currentDataItems.length) { alert("내보낼 데이터가 없습니다. 먼저 새로고침 해주세요."); return; }
+  downloadFile("naver_financials.json", JSON.stringify(currentDataItems, null, 2), "application/json");
+});
 
 /* =========================================================
    3. 대화 기록 화면
@@ -199,6 +253,7 @@ function escapeHtml(str) {
 const summaryMeta = document.getElementById("summary-meta");
 const summaryTableBody = document.getElementById("summary-table-body");
 let summaryChartInstance = null;
+let stabilityChartInstance = null;
 
 async function loadSummary() {
   summaryMeta.textContent = "불러오는 중...";
@@ -223,11 +278,13 @@ async function loadSummary() {
         <td>${Number(m.average).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
         <td>${Number(m.max).toLocaleString()}</td>
         <td>${Number(m.min).toLocaleString()}</td>
+        <td>${Number(m.volatility ?? 0).toLocaleString(undefined, { maximumFractionDigits: 2 })}</td>
         <td>${m.count}</td>
       </tr>
     `).join("");
 
     renderSummaryChart(allData);
+    renderStabilityChart(allData);
   } catch (err) {
     summaryMeta.textContent = `불러오기 실패: ${err.message}`;
   }
@@ -258,6 +315,45 @@ function renderSummaryChart(allData) {
       responsive: true,
       plugins: { legend: { display: false } },
       scales: { y: { ticks: { callback: v => Number(v).toLocaleString() } } },
+    },
+  });
+}
+
+// ----- 추가 시각화: 안정성 지표(부채비율/유동비율) 추이 (보너스 기능) -----
+function renderStabilityChart(allData) {
+  const debtData = allData.filter(d => d.memo === "부채비율(%)").sort((a, b) => a.date.localeCompare(b.date));
+  const currentRatioData = allData.filter(d => d.memo === "유동비율(%)").sort((a, b) => a.date.localeCompare(b.date));
+
+  const ctx = document.getElementById("stability-chart");
+  if (stabilityChartInstance) stabilityChartInstance.destroy();
+
+  if (!debtData.length && !currentRatioData.length) return;
+
+  stabilityChartInstance = new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: debtData.length ? debtData.map(d => d.date) : currentRatioData.map(d => d.date),
+      datasets: [
+        {
+          label: "부채비율(%)",
+          data: debtData.map(d => d.value),
+          borderColor: CHART_COLORS[3],
+          backgroundColor: CHART_COLORS[3] + "22",
+          tension: 0.25,
+        },
+        {
+          label: "유동비율(%)",
+          data: currentRatioData.map(d => d.value),
+          borderColor: CHART_COLORS[1],
+          backgroundColor: CHART_COLORS[1] + "22",
+          tension: 0.25,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: true, position: "top" } },
+      scales: { y: { ticks: { callback: v => Number(v).toLocaleString() + "%" } } },
     },
   });
 }

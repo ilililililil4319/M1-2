@@ -18,6 +18,15 @@
   --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
 }
 
+/* ===== 다크모드 (보너스 기능) ===== */
+[data-theme="dark"] {
+  --background: #0F172A;
+  --surface: #1E293B;
+  --border: #334155;
+  --text-primary: #F1F5F9;
+  --text-muted: #94A3B8;
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -25,6 +34,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Malgun Gothic", sans-serif;
   background: var(--background);
   color: var(--text-primary);
+  transition: background 0.2s, color 0.2s;
 }
 
 /* ===== 헤더 ===== */
@@ -33,8 +43,29 @@ body {
   color: #fff;
   padding: 24px 32px;
 }
+.app-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 .app-header h1 { margin: 0; font-size: 1.4rem; font-weight: 600; }
 .app-header .subtitle { margin: 4px 0 0; font-size: 0.9rem; opacity: 0.85; }
+
+.theme-toggle {
+  background: rgba(255,255,255,0.12);
+  border: 1px solid rgba(255,255,255,0.25);
+  color: #fff;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.theme-toggle:hover { background: rgba(255,255,255,0.22); }
+
+.header-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
 /* ===== 탭 네비게이션 ===== */
 .tab-nav {
