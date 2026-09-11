@@ -392,7 +392,29 @@ client = OpenAI(
 Render 무료 플랜은 일정 시간 요청이 없으면 서버가 슬립 모드로 전환되며, 슬립 이후 첫 요청은 서버가 다시 깨어나는 데 최대 50초 정도 걸릴 수 있다(배포 화면에도 "Your free instance will spin down with inactivity" 안내가 표시됨). 별도의 프리워밍 없이 무료 플랜을 그대로 사용했으므로, 평가 시 처음 접속했을 때 응답이 느리다면 콜드스타트 때문일 가능성이 높다 — 몇 초 기다린 후 새로고침하면 정상 속도로 동작한다.
 
 **입력값 위험 대응**
-현재 `ChatRequest.message`, `DataItem`의 `memo` 등은 Pydantic으로 타입(문자열/숫자)만 검증하고 있어, 길이 제한이나 스크립트 삽입(XSS) 방지 같은 별도의 정제(sanitization)는 적용되어 있지 않다. 프론트엔드에서 `textContent`로 렌더링해 브라우저 단에서 스크립트가 실행되는 것은 막고 있지만(innerHTML 미사용), 서버 측 길이 제한·금칙어 필터링은 아직 없다. 개인 프로젝트 규모의 데모 서비스라 우선순위에서 밀렸으나, 실서비스라면 Pydantic 필드에 `max_length` 제약을 추가하고 서버 측에서도 입력값을 한 번 더 검증하는 것이 필요하다.
+`ChatRequest.message`, `DataItem.memo`, `ConversationCreate.title`, `Message.content` 등 모든 사용자 입력 필드에 Pydantic `Field(max_length=...)` 제약을 적용했다(예: 채팅 메시지 최대 2000자, 메모 최대 100자, 대화 제목 최대 200자). 또한 `field_validator`로 제어 문자(널바이트 등)를 제거하고 앞뒤 공백을 정리하는 기본 정제(sanitization)를 서버 측에서도 적용해, 프론트엔드의 `textContent` 렌더링(XSS 방어)에 더해 이중으로 방어한다. 공백만 있는 입력이나 규격에 안 맞는 값(예: 날짜 형식 오류)은 요청 단계에서 422 오류로 거부된다.
+
+**실제 테스트 증빙**
+
+| 테스트 | 입력 | 결과 |
+|---|---|---|
+| 메시지 길이 제한 | 2000자 초과 메시지 전송 | `422`, `"max_length": 2000` |
+| 날짜 형식 검증 | `"2026/06/30"` (슬래시) 전송 | `422`, `pattern '^\d{4}-\d{2}-\d{2}$'` 불일치 |
+| 공백만 있는 입력 거부 | `"message": "   "` 전송 | `422`, `"message는 공백만으로 구성될 수 없습니다."` |
+
+| 길이 제한 테스트 요청 | 길이 제한 422 응답 |
+|:---:|:---:|
+| ![](screenshots/93.%20%ED%85%8C%EC%8A%A4%ED%8A%B8_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) | ![](screenshots/94.%20%ED%85%8C%EC%8A%A4%ED%8A%B8%EA%B2%B0%EA%B3%BC_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) |
+
+| 날짜 형식 테스트 요청 | 날짜 형식 422 응답 |
+|:---:|:---:|
+| ![](screenshots/95.%20%ED%85%8C%EC%8A%A4%ED%8A%B82_%EB%82%A0%EC%A7%9C%20%ED%98%95%EC%8B%9D%20%EA%B2%80%EC%A6%9D.png) | ![](screenshots/96.%20%ED%85%8C%EC%8A%A4%ED%8A%B82%EA%B2%B0%EA%B3%BC_%EB%82%A0%EC%A7%9C%20%ED%98%95%EC%8B%9D%20%EA%B2%80%EC%A6%9D.png) |
+
+| 공백 입력 테스트 요청 | 공백 입력 422 응답 |
+|:---:|:---:|
+| ![](screenshots/97.%20%ED%85%8C%EC%8A%A4%ED%8A%B83_%EA%B3%B5%EB%B0%B1%EB%A7%8C%20%EC%9E%88%EB%8A%94%20%EC%9E%85%EB%A0%A5.png) | ![](screenshots/98.%20%ED%85%8C%EC%8A%A4%ED%8A%B83%EA%B2%B0%EA%B3%BC_%EA%B3%B5%EB%B0%B1%EB%A7%8C%20%EC%9E%88%EB%8A%94%20%EC%9E%85%EB%A0%A5.png) |
+
+세 가지 검증 모두 코드 수정 직후 Swagger UI에서 직접 실행해 실제로 422 오류가 발생하는 것을 확인했다.
 
 ---
 
