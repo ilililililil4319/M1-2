@@ -404,8 +404,7 @@ Render 무료 플랜은 일정 시간 요청이 없으면 서버가 슬립 모�
 
 | 길이 제한 테스트 요청 | 길이 제한 422 응답 |
 |:---:|:---:|
-| ![](screenshots/93.%20%ED%85%8C%EC%8A%A4%ED%8A%B8_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) | <img width="1053" height="503" alt="94  테스트 결과_메시지 길이 제한" src="https://github.com/user-attachments/assets/4cfec678-bed0-4c39-9b3a-d7e2c7a244b7" />
- |
+| ![](screenshots/93.%20%ED%85%8C%EC%8A%A4%ED%8A%B8_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) | ![](screenshots/94.%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B2%B0%EA%B3%BC_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) |
 
 | 날짜 형식 테스트 요청 | 날짜 형식 422 응답 |
 |:---:|:---:|
@@ -532,7 +531,7 @@ uvicorn main:app --reload
 
 | Render 배포 성공 | Vercel 배포 성공 |
 |:---:|:---:|
-| ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%20%EC%9D%B4%EB%A0%A5.png) | ![](screenshots/100.%20%EB%B2%84%EC%85%80%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%A8%BC%ED%8A%B8.png) |
+| ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C%20%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4.png) | ![](screenshots/100.%20%EB%B2%84%EC%8E%8C%20%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%A8%BC%ED%8A%B8.png) |
 
 *왼쪽: Render 대시보드의 배포 이력. 모든 배포가 초록색 체크(성공)로 표시되어 있으며, 가장 최근 배포("입력값 검증 실제 테스트 증빙 추가")까지 정상 반영됐다. 오른쪽: Vercel 대시보드의 배포(Deployments) 목록. 전부 "Ready" 상태로 최신 커밋까지 문제없이 배포됐다.*
 
@@ -562,7 +561,7 @@ uvicorn main:app --reload
 
 | ④ Render 빌드 실패 로그(원인) | ⑤ 이후 배포 이력(해결 후 정상 반영, 참고용) |
 |:---:|:---:|
-| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%20%EC%9D%B4%EB%A0%A5.png) |
+| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C%20%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4.png) |
 
 *④ requirements.txt를 찾지 못해 빌드가 실패한 실제 로그 화면. ⑤ Root Directory 수정 후 이어진 배포들이 전부 성공(초록 체크)으로 기록된 Render 배포 이력 — 역시 해결을 증명하기 위한 참고용 성공 화면이다.*
 
@@ -604,7 +603,7 @@ uvicorn main:app --reload
 
 제출 전 AI 사전평가를 실행하며 지적 사항을 보완했다. AI 사전평가는 총 3회까지 응시 가능하며(응시 도중 발생한 오류는 횟수에서 제외), 1차 78%(14/18) → 2차 94%(17/18, 서버 측 입력값 검증 코드 추가로 유일한 미통과 항목 해결) → **3차(최종) 100%(18/18) 전 항목 통과**로 마무리했다. 자세한 회차별 보완 내역은 결과보고서 Ⅳ장 "AI 사전평가 결과 반영"에 정리되어 있다.
 
-![](screenshots/102.%20AI%20%EC%82%AC%EC%A0%84%ED%8F%89%EA%B0%80%20%EA%B2%B0%EA%B3%BC%28100%25%29.png)
+![](screenshots/102.%20%EB%84%A4%EC%9D%B4%ED%86%A0%EC%82%AC%EC%A0%84%ED%8F%89%EA%B0%80%20%EA%B2%B0%EA%B3%BC.png)
 
 *최종(3차) AI 사전평가 결과 — 18개 항목 전체 통과(100%). 배포 URL·Swagger·Firestore 연동·요약 API 주입·대화 저장·프론트 연동·환경변수·콜드스타트 안내 등 미션 핵심을 문서와 코드·스크린샷으로 충실히 증빙하고 있다는 평가다.*
 

@@ -340,7 +340,7 @@ client = OpenAI(
 
 | 길이 제한 검증 | 날짜 형식 검증 | 공백 입력 검증 |
 |:---:|:---:|:---:|
-| ![](screenshots/94.%20%ED%85%8C%EC%8A%A4%ED%8A%B8%EA%B2%B0%EA%B3%BC_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) | ![](screenshots/96.%20%ED%85%8C%EC%8A%A4%ED%8A%B82%EA%B2%B0%EA%B3%BC_%EB%82%A0%EC%A7%9C%20%ED%98%95%EC%8B%9D%20%EA%B2%80%EC%A6%9D.png) | ![](screenshots/98.%20%ED%85%8C%EC%8A%A4%ED%8A%B83%EA%B2%B0%EA%B3%BC_%EA%B3%B5%EB%B0%B1%EB%A7%8C%20%EC%9E%88%EB%8A%94%20%EC%9E%85%EB%A0%A5.png) |
+| ![](screenshots/94.%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EA%B2%B0%EA%B3%BC_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) | ![](screenshots/96.%20%ED%85%8C%EC%8A%A4%ED%8A%B82%EA%B2%B0%EA%B3%BC_%EB%82%A0%EC%A7%9C%20%ED%98%95%EC%8B%9D%20%EA%B2%80%EC%A6%9D.png) | ![](screenshots/98.%20%ED%85%8C%EC%8A%A4%ED%8A%B83%EA%B2%B0%EA%B3%BC_%EA%B3%B5%EB%B0%B1%EB%A7%8C%20%EC%9E%88%EB%8A%94%20%EC%9E%85%EB%A0%A5.png) |
 
 ---
 
@@ -366,7 +366,7 @@ client = OpenAI(
 
 | Render 빌드 실패(로그) | 원인 파악 후 재배포 성공 |
 |:---:|:---:|
-| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%20%EC%9D%B4%EB%A0%A5.png) |
+| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C%20%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4.png) |
 
 *왼쪽: requirements.txt를 찾지 못해 실제로 빌드가 실패한 로그. 오른쪽: 원인(Root Directory 미지정) 수정 후 이어진 배포들이 전부 성공으로 기록된 Render 배포 이력 — 해결을 증명하기 위한 참고용 성공 화면이다.*
 
