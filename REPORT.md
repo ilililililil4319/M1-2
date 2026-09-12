@@ -366,7 +366,9 @@ client = OpenAI(
 
 | Render 빌드 실패(로그) | 원인 파악 후 재배포 성공 |
 |:---:|:---:|
-| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/71.%20%EB%A0%8C%EB%8D%94_%EC%9E%AC%EB%B0%B0%ED%8F%AC%20%EC%84%B1%EA%B3%B5.png) |
+| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%20%EC%9D%B4%EB%A0%A5.png) |
+
+*왼쪽: requirements.txt를 찾지 못해 실제로 빌드가 실패한 로그. 오른쪽: 원인(Root Directory 미지정) 수정 후 이어진 배포들이 전부 성공으로 기록된 Render 배포 이력 — 해결을 증명하기 위한 참고용 성공 화면이다.*
 
 ---
 
@@ -455,9 +457,9 @@ client = OpenAI(
 
 **GitHub 업로드 확인**
 
-![](screenshots/92.%20%EA%B9%83%ED%97%88%EB%B8%8C%20%EC%97%85%EB%A1%9C%EB%93%9C.png)
+![](screenshots/101.%20%EA%B9%83%ED%97%88%EB%B8%8C%20%EC%97%85%EB%A1%9C%EB%93%9C%20%EC%B5%9C%EC%A2%85.png)
 
-코드·데이터·문서·스크린샷 전체를 GitHub 저장소에 업로드 완료한 화면이다.
+*코드·데이터·문서·스크린샷 전체를 GitHub 저장소에 업로드 완료한 최신 화면(입력값 검증 커밋까지 반영).*
 
 ---
 

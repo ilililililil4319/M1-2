@@ -531,7 +531,9 @@ uvicorn main:app --reload
 
 | Render 배포 성공 | Vercel 배포 성공 |
 |:---:|:---:|
-| ![](screenshots/71.%20%EB%A0%8C%EB%8D%94_%EC%9E%AC%EB%B0%B0%ED%8F%AC%20%EC%84%B1%EA%B3%B5.png) | ![](screenshots/76.%20Vercel%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C.png) |
+| ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%20%EC%9D%B4%EB%A0%A5.png) | ![](screenshots/100.%20%EB%B2%84%EC%85%80%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%A8%BC%ED%8A%B8.png) |
+
+*왼쪽: Render 대시보드의 배포 이력. 모든 배포가 초록색 체크(성공)로 표시되어 있으며, 가장 최근 배포("입력값 검증 실제 테스트 증빙 추가")까지 정상 반영됐다. 오른쪽: Vercel 대시보드의 배포(Deployments) 목록. 전부 "Ready" 상태로 최신 커밋까지 문제없이 배포됐다.*
 
 ---
 
@@ -549,13 +551,19 @@ uvicorn main:app --reload
 
 **오류 처리 과정 증빙**
 
-| 코디세이 API 오류 발생 | 원인 추적(traceback 디버깅) | 해결 확인(정상 응답) |
+*아래 3장 중 왼쪽 2장은 실제 "오류가 발생한 화면"이고, 오른쪽 1장은 원인을 고친 "이후의 정상 응답 화면"이다 — 문제가 어떻게 해결됐는지 전후를 비교할 수 있도록 함께 실었다.*
+
+| ① 코디세이 API 오류 발생(503) | ② 원인 추적(서버 콘솔 traceback 디버깅) | ③ 해결 후 정상 응답(200, 참고용) |
 |:---:|:---:|:---:|
 | ![](screenshots/58.%20chat%20%ED%85%8C%EC%8A%A4%ED%8A%B8%20%EC%97%90%EB%9F%AC.png) | ![](screenshots/61-3.%20chat%20%EC%97%90%EB%9F%AC%20%EC%B0%BE%EA%B8%B03.png) | ![](screenshots/61-6.%20chat%20%EC%97%90%EB%9F%AC%20%EC%B0%BE%EA%B8%B06%28%EC%84%B1%EA%B3%B5%29.png) |
 
-| Render 빌드 실패(로그) | 원인 파악 후 재배포 성공 |
+*① 실제 503 오류가 발생한 화면. ② 서버 콘솔에 traceback을 직접 출력시켜 원인(인코딩 오류)을 추적하는 화면. ③ 원인 해결 후 정상적으로 재무 데이터 기반 답변이 돌아온 화면 — 이 장만 유일하게 성공 화면이며, 문제 해결을 증명하기 위해 의도적으로 넣었다.*
+
+| ④ Render 빌드 실패 로그(원인) | ⑤ 이후 배포 이력(해결 후 정상 반영, 참고용) |
 |:---:|:---:|
-| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/71.%20%EB%A0%8C%EB%8D%94_%EC%9E%AC%EB%B0%B0%ED%8F%AC%20%EC%84%B1%EA%B3%B5.png) |
+| ![](screenshots/70.%20%EB%A0%8C%EB%8D%94_%EB%94%94%EB%B2%84%EA%B7%B8.png) | ![](screenshots/99.%20%EB%A0%8C%EB%8D%94%20%EB%8C%80%EC%8B%9C%EB%B3%B4%EB%93%9C_%EB%94%94%ED%94%8C%EB%A1%9C%EC%9D%B4%20%EC%9D%B4%EB%A0%A5.png) |
+
+*④ requirements.txt를 찾지 못해 빌드가 실패한 실제 로그 화면. ⑤ Root Directory 수정 후 이어진 배포들이 전부 성공(초록 체크)으로 기록된 Render 배포 이력 — 역시 해결을 증명하기 위한 참고용 성공 화면이다.*
 
 ---
 
@@ -647,7 +655,7 @@ uvicorn main:app --reload
 
 **GitHub 업로드 확인**
 
-![](screenshots/92.%20%EA%B9%83%ED%97%88%EB%B8%8C%20%EC%97%85%EB%A1%9C%EB%93%9C.png)
+![](screenshots/101.%20%EA%B9%83%ED%97%88%EB%B8%8C%20%EC%97%85%EB%A1%9C%EB%93%9C%20%EC%B5%9C%EC%A2%85.png)
 
 코드·데이터·문서·스크린샷 전체를 GitHub 저장소(https://github.com/ilililililil4319/M1-2)에 업로드 완료한 화면이다.
 
