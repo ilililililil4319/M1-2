@@ -404,7 +404,8 @@ Render 무료 플랜은 일정 시간 요청이 없으면 서버가 슬립 모�
 
 | 길이 제한 테스트 요청 | 길이 제한 422 응답 |
 |:---:|:---:|
-| ![](screenshots/93.%20%ED%85%8C%EC%8A%A4%ED%8A%B8_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) | ![](screenshots/94.%20%ED%85%8C%EC%8A%A4%ED%8A%B8%EA%B2%B0%EA%B3%BC_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) |
+| ![](screenshots/93.%20%ED%85%8C%EC%8A%A4%ED%8A%B8_%EB%A9%94%EC%8B%9C%EC%A7%80%20%EA%B8%B8%EC%9D%B4%20%EC%A0%9C%ED%95%9C.png) | <img width="1053" height="503" alt="94  테스트 결과_메시지 길이 제한" src="https://github.com/user-attachments/assets/4cfec678-bed0-4c39-9b3a-d7e2c7a244b7" />
+ |
 
 | 날짜 형식 테스트 요청 | 날짜 형식 422 응답 |
 |:---:|:---:|
