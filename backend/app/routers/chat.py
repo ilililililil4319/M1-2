@@ -17,8 +17,8 @@ client = OpenAI(
 )
 
 MODEL = "gpt-5-mini"
-MAX_RETRIES = 2           # 기획서 Ⅶ: 최대 2회 재시도
-TIMEOUT_SECONDS = 15       # 기획서 Ⅶ: 15초 이상 지연 시 타임아웃 처리
+MAX_RETRIES = 1            # 재시도 1회로 조정 (타임아웃 상향에 따라 전체 대기시간 관리)
+TIMEOUT_SECONDS = 30        # 15초는 실제 운영환경(네트워크 지연+추론시간)에 너무 빠듯해 30초로 상향
 MAX_TOKENS = 2000          # gpt-5-mini는 추론(reasoning) 과정도 토큰을 소모하므로
                            # 800으로는 답변 전에 토큰이 소진되어 빈 응답이 나옴 (실측 확인됨)
 
